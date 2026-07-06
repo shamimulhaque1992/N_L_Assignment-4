@@ -1,0 +1,41 @@
+enum Role {
+    ADMIN
+    TENANT
+    LANDLORD
+}
+
+enum UserStatus {
+    BAN
+    UNBAN
+}
+
+enum PropertyStatus {
+    AVAILABLE
+    UNAVAILABLE
+}
+
+enum RequestStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    COMPLETED
+    CANCELLED
+}
+
+enum PaymentProvider {
+    STRIPE
+    SSLCOMMERZ
+}
+
+enum PaymentMethod {
+    CARD
+    MOBILE_BANKING
+    BANK_TRANSFER
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
