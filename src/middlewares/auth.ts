@@ -26,6 +26,7 @@ export const auth = (...requiredRoles: Role[]) => {
       : req.headers.authorization?.startsWith("Bearer ")
         ? (req.headers.authorization as string).split(" ")[1]
         : req.headers.authorization;
+    console.log("🚀 ~ auth ~ token:", token)
 
     if (!token) {
       throw new Error("No token provided");
