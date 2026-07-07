@@ -133,6 +133,7 @@ const deleteUser = async (userId: string) => {
   await prisma.user.findUniqueOrThrow({
     where: { id: userId },
   });
+  console.log("🚀 ~ deleteUser ~ userId:", userId)
 
   await prisma.user.delete({
     where: { id: userId },
