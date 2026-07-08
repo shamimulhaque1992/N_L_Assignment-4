@@ -209,14 +209,10 @@ const updateRentalRequestStatus = async (
     },
   });
 
-  // Verify the landlord owns the property
   if (rentalRequest.property.landlordId !== landlordId) {
-    throw new Error(
-      "You are not authorized to update this rental request",
-    );
+    throw new Error("You are not authorized to update this rental request");
   }
 
-  // Validate status transitions
   if (rentalRequest.status === RequestStatus.COMPLETED) {
     throw new Error("Cannot modify a completed rental request");
   }

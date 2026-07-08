@@ -15,6 +15,7 @@ const registerUser = catchAsync(
     });
   },
 );
+
 const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { accessToken, refreshToken } = await authService.login(req.body);
@@ -37,6 +38,7 @@ const login = catchAsync(
     });
   },
 );
+
 const refreshToken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await authService.refreshToken(req.cookies.refreshToken);

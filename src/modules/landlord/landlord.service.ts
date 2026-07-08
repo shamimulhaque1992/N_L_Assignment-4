@@ -1,7 +1,4 @@
-import {
-  PropertyStatus,
-  RequestStatus,
-} from "../../../generated/prisma/enums";
+import { PropertyStatus, RequestStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { IGetLandlordStats } from "./landlord.interface";
 
@@ -202,7 +199,6 @@ const getTenantHistory = async (landlordId: string, tenantId: string) => {
 
   const propertyIds = landlordProperties.map((p) => p.id);
 
-  // Get all rental requests from this tenant for landlord's properties
   const rentalHistory = await prisma.rentalRequest.findMany({
     where: {
       tenantId,
@@ -221,7 +217,6 @@ const getTenantHistory = async (landlordId: string, tenantId: string) => {
     },
   });
 
-  // Get all reviews from this tenant for landlord's properties
   const reviewHistory = await prisma.review.findMany({
     where: {
       tenantId,
@@ -239,7 +234,6 @@ const getTenantHistory = async (landlordId: string, tenantId: string) => {
     },
   });
 
-  // Get tenant info
   const tenant = await prisma.user.findUniqueOrThrow({
     where: { id: tenantId },
     omit: { password: true },

@@ -3,14 +3,20 @@ model Payment {
 
     rentalRequestId String @unique
 
-    transactionId String? @unique
+    // Stripe IDs
+    stripeCustomerId     String? @unique
+    stripeSubscriptionId String? @unique
+    stripeSessionId      String? @unique
 
     amount Decimal @db.Decimal(10, 2)
 
-    provider PaymentProvider
-    method   PaymentMethod
+    provider PaymentProvider @default(STRIPE)
+    method   PaymentMethod   @default(CARD)
 
     status PaymentStatus @default(PENDING)
+
+    // End of current billing period — after this date the subscription expires
+    currentPeriodEnd DateTime?
 
     paidAt DateTime?
 
