@@ -209,14 +209,10 @@ const updateRentalRequestStatus = async (
     },
   });
 
-  // Verify the landlord owns the property
   if (rentalRequest.property.landlordId !== landlordId) {
-    throw new Error(
-      "You are not authorized to update this rental request",
-    );
+    throw new Error("You are not authorized to update this rental request");
   }
 
-  // Validate status transitions
   if (rentalRequest.status === RequestStatus.COMPLETED) {
     throw new Error("Cannot modify a completed rental request");
   }
@@ -225,27 +221,37 @@ const updateRentalRequestStatus = async (
     throw new Error("Cannot modify a cancelled rental request");
   }
 
-  const updatedRequest = await prisma.rentalRequest.update({
-    where: { id: requestId },
-    data: {
-      status,
-    },
-    include: {
-      property: {
-        include: {
-          category: true,
-          landlord: {
-            omit: { password: true },
-            include: { profile: true },
+  const updatedRequest = await prisma.$transaction(async (tx) => {
+    const updated = await tx.rentalRequest.update({
+      where: { id: requestId },
+      data: { status },
+      include: {
+        property: {
+          include: {
+            category: true,
+            landlord: {
+              omit: { password: true },
+              include: { profile: true },
+            },
           },
         },
+        tenant: {
+          omit: { password: true },
+          include: { profile: true },
+        },
+        payment: true,
       },
-      tenant: {
-        omit: { password: true },
-        include: { profile: true },
-      },
-      payment: true,
-    },
+    });
+
+    // Rental ended — make the property available again for new tenants
+    if (status === RequestStatus.COMPLETED) {
+      await tx.property.update({
+        where: { id: updated.property.id },
+        data: { status: "AVAILABLE" },
+      });
+    }
+
+    return updated;
   });
 
   return updatedRequest;

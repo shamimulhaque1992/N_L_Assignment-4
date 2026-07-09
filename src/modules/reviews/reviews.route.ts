@@ -5,27 +5,10 @@ import { Role } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-// Public routes
 router.get("/", reviewsController.getAllReviews);
 router.get("/:id", reviewsController.getSingleReview);
-
-// Tenant routes
-router.post(
-  "/",
-  auth(Role.TENANT),
-  reviewsController.createReview,
-);
-
-router.put(
-  "/:id",
-  auth(Role.TENANT),
-  reviewsController.updateReview,
-);
-
-router.delete(
-  "/:id",
-  auth(Role.TENANT),
-  reviewsController.deleteReview,
-);
+router.post("/", auth(Role.TENANT), reviewsController.createReview);
+router.put("/:id", auth(Role.TENANT), reviewsController.updateReview);
+router.delete("/:id", auth(Role.TENANT), reviewsController.deleteReview);
 
 export const reviewsRoutes = router;

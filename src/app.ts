@@ -12,8 +12,19 @@ import { requestRoutes } from "./modules/rental-requests/request.route";
 import { reviewsRoutes } from "./modules/reviews/reviews.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { landlordRoutes } from "./modules/landlord/landlord.route";
+import { paymentRoutes } from "./modules/payments/payment.route";
 
 const app: Application = express();
+
+// ─── Stripe webhook needs the raw request body ───────────────────────────────
+// This MUST be registered before express.json() so Stripe signature
+// verification receives the original Buffer, not the parsed JSON object.
+app.use(
+  "/api/v1/payments/webhook",
+  express.raw({ type: "application/json" }),
+);
+// ─────────────────────────────────────────────────────────────────────────────
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
@@ -23,6 +34,7 @@ app.use(
   }),
 );
 app.use(express.json());
+
 app.get("/", async (req: Request, res: Response) => {
   res.send({ message: "RentNest API is running" });
 });
@@ -41,6 +53,9 @@ app.use("/api/v1/categories", categoriesRoutes);
 
 // Rental request routes (tenant & landlord)
 app.use("/api/v1/rentals", requestRoutes);
+
+// Payment routes (tenant & admin)
+app.use("/api/v1/payments", paymentRoutes);
 
 // Review routes (public & tenant)
 app.use("/api/v1/reviews", reviewsRoutes);

@@ -18,6 +18,7 @@ enum RequestStatus {
     PENDING
     APPROVED
     REJECTED
+    ACTIVE
     COMPLETED
     CANCELLED
 }

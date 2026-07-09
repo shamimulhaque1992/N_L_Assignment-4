@@ -44,6 +44,7 @@ const registerUser = async (payload: ICreateUserPayload) => {
 
   return createdNewUser;
 };
+
 const login = async (payload: ILoginPayload) => {
   const { email, password } = payload;
   // check the user exists or not
@@ -84,6 +85,7 @@ const login = async (payload: ILoginPayload) => {
     user: userPayload,
   };
 };
+
 const refreshToken = async (token: string) => {
   if (!token) {
     throw new Error("Refresh token not found");
