@@ -11,7 +11,7 @@ router.get(
   auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
   userController.getSingleUser,
 );
-router.put(
+router.patch(
   "/:id",
   auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
   userController.updateUser,

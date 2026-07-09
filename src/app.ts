@@ -16,14 +16,7 @@ import { paymentRoutes } from "./modules/payments/payment.route";
 
 const app: Application = express();
 
-// ─── Stripe webhook needs the raw request body ───────────────────────────────
-// This MUST be registered before express.json() so Stripe signature
-// verification receives the original Buffer, not the parsed JSON object.
-app.use(
-  "/payments/webhook",
-  express.raw({ type: "application/json" }),
-);
-// ─────────────────────────────────────────────────────────────────────────────
+app.use("/payments/webhook", express.raw({ type: "application/json" }));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

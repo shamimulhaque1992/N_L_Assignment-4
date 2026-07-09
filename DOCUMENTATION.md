@@ -27,9 +27,9 @@
 |--------|----------|--------|-------------|
 | GET | `/api/v1/properties` | Public | Get all properties (with filters) |
 | GET | `/api/v1/properties/:id` | Public | Get single property details |
-| POST | `/api/v1/properties` | LANDLORD | Create new property listing |
-| PUT | `/api/v1/properties/:id` | LANDLORD | Update property (owner only) |
-| DELETE | `/api/v1/properties/:id` | LANDLORD | Delete property (owner only) |
+| POST | `/api/v1/properties` | ADMIN/LANDLORD | Create new property listing |
+| PUT | `/api/v1/properties/:id` | ADMIN/LANDLORD | Update property (owner only) |
+| DELETE | `/api/v1/properties/:id` | ADMIN/LANDLORD | Delete property (owner only) |
 
 ### Category Routes (`/api/v1/categories`)
 | Method | Endpoint | Access | Description |

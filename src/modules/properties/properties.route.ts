@@ -12,19 +12,19 @@ router.get("/:id", propertiesController.getSingleProperty);
 // Landlord routes
 router.post(
   "/",
-  auth(Role.LANDLORD),
+  auth(Role.LANDLORD, Role.ADMIN),
   propertiesController.createProperty,
 );
 
-router.put(
+router.patch(
   "/:id",
-  auth(Role.LANDLORD),
+  auth(Role.LANDLORD, Role.ADMIN),
   propertiesController.updateProperty,
 );
 
 router.delete(
   "/:id",
-  auth(Role.LANDLORD),
+  auth(Role.LANDLORD, Role.ADMIN),
   propertiesController.deleteProperty,
 );
 
