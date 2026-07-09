@@ -33,11 +33,38 @@ export const handleCheckoutSessionCompleted = async (
       },
     });
 
-    await tx.rentalRequest.update({
+    const rentalRequest = await tx.rentalRequest.update({
       where: { id: rentalRequestId },
       data: { status: RequestStatus.ACTIVE },
+    });
+
+    // After the property is occupied by a tenant payment then we make the property unavailable
+    await tx.property.update({
+      where: { id: rentalRequest.propertyId },
+      data: { status: "UNAVAILABLE" },
     });
   });
 
   console.log("currentPeriodEnd:", currentPeriodEnd.toISOString());
+};
+
+export const handleCheckoutSessionExpired = async (
+  session: Stripe.Checkout.Session,
+) => {
+  const rentalRequestId = session.metadata?.rentalRequestId;
+
+  console.log("Webhook: checkout.session.expired");
+  console.log("  rentalRequestId:", rentalRequestId);
+
+  if (!rentalRequestId) {
+    console.error("Webhook: missing rentalRequestId in metadata — skipping");
+    return;
+  }
+
+  await prisma.payment.update({
+    where: { rentalRequestId },
+    data: { status: PaymentStatus.FAILED },
+  });
+
+  console.log("Payment marked FAILED");
 };

@@ -7,7 +7,10 @@ import {
   ICreatePaymentSessionPayload,
   IGetAllPaymentsQuery,
 } from "./payment.interface";
-import { handleCheckoutSessionCompleted } from "./payment.utils";
+import {
+  handleCheckoutSessionCompleted,
+  handleCheckoutSessionExpired,
+} from "./payment.utils";
 
 const createPaymentSession = async (
   tenantId: string,
@@ -122,6 +125,10 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
   switch (event.type) {
     case "checkout.session.completed":
       await handleCheckoutSessionCompleted(event.data.object);
+      break;
+
+    case "checkout.session.expired":
+      await handleCheckoutSessionExpired(event.data.object);
       break;
 
     default:

@@ -221,27 +221,37 @@ const updateRentalRequestStatus = async (
     throw new Error("Cannot modify a cancelled rental request");
   }
 
-  const updatedRequest = await prisma.rentalRequest.update({
-    where: { id: requestId },
-    data: {
-      status,
-    },
-    include: {
-      property: {
-        include: {
-          category: true,
-          landlord: {
-            omit: { password: true },
-            include: { profile: true },
+  const updatedRequest = await prisma.$transaction(async (tx) => {
+    const updated = await tx.rentalRequest.update({
+      where: { id: requestId },
+      data: { status },
+      include: {
+        property: {
+          include: {
+            category: true,
+            landlord: {
+              omit: { password: true },
+              include: { profile: true },
+            },
           },
         },
+        tenant: {
+          omit: { password: true },
+          include: { profile: true },
+        },
+        payment: true,
       },
-      tenant: {
-        omit: { password: true },
-        include: { profile: true },
-      },
-      payment: true,
-    },
+    });
+
+    // Rental ended — make the property available again for new tenants
+    if (status === RequestStatus.COMPLETED) {
+      await tx.property.update({
+        where: { id: updated.property.id },
+        data: { status: "AVAILABLE" },
+      });
+    }
+
+    return updated;
   });
 
   return updatedRequest;
