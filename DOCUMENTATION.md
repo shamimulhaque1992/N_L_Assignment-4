@@ -4,6 +4,80 @@
 
 ---
 
+## 🚀 Quick API Reference - All Routes
+
+### Authentication Routes (`/api/v1/auth`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/auth/register` | Public | Register new user |
+| POST | `/api/v1/auth/login` | Public | Login user |
+| POST | `/api/v1/auth/refresh-token` | Public | Refresh access token |
+
+### User Routes (`/api/v1/users`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/users` | ADMIN | Get all users |
+| GET | `/api/v1/users/me` | Authenticated | Get current user profile |
+| PUT | `/api/v1/users/:id` | Authenticated | Update user profile |
+| DELETE | `/api/v1/users/:id` | ADMIN | Delete user |
+| PATCH | `/api/v1/users/:id/moderate` | ADMIN | Ban/Unban user |
+
+### Property Routes (`/api/v1/properties`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/properties` | Public | Get all properties (with filters) |
+| GET | `/api/v1/properties/:id` | Public | Get single property details |
+| POST | `/api/v1/properties` | LANDLORD | Create new property listing |
+| PUT | `/api/v1/properties/:id` | LANDLORD | Update property (owner only) |
+| DELETE | `/api/v1/properties/:id` | LANDLORD | Delete property (owner only) |
+
+### Category Routes (`/api/v1/categories`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/categories` | Public | Get all categories |
+| GET | `/api/v1/categories/:id` | Public | Get single category with properties |
+| POST | `/api/v1/categories` | ADMIN | Create new category |
+| PUT | `/api/v1/categories/:id` | ADMIN | Update category |
+| DELETE | `/api/v1/categories/:id` | ADMIN | Delete category |
+
+### Rental Request Routes (`/api/v1/rentals`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/rentals` | TENANT | Submit rental request |
+| GET | `/api/v1/rentals` | TENANT/LANDLORD/ADMIN | Get rental requests (filtered by role) |
+| GET | `/api/v1/rentals/:id` | TENANT/LANDLORD/ADMIN | Get single rental request |
+| PATCH | `/api/v1/rentals/:id/status` | LANDLORD | Approve/Reject/Complete request |
+| PATCH | `/api/v1/rentals/:id/cancel` | TENANT | Cancel pending request |
+
+### Review Routes (`/api/v1/reviews`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/reviews` | Public | Get all reviews (with filters) |
+| GET | `/api/v1/reviews/:id` | Public | Get single review |
+| POST | `/api/v1/reviews` | TENANT | Create review (after completed rental) |
+| PUT | `/api/v1/reviews/:id` | TENANT | Update review (owner only) |
+| DELETE | `/api/v1/reviews/:id` | TENANT | Delete review (owner only) |
+
+### Admin Routes (`/api/v1/admin`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/admin/dashboard` | ADMIN | Get platform statistics |
+| GET | `/api/v1/admin/properties` | ADMIN | View all properties |
+| GET | `/api/v1/admin/rental-requests` | ADMIN | View all rental requests |
+| DELETE | `/api/v1/admin/properties/:id` | ADMIN | Delete any property |
+| DELETE | `/api/v1/admin/reviews/:id` | ADMIN | Delete any review |
+
+### Landlord Routes (`/api/v1/landlord`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/v1/landlord/stats` | LANDLORD | Get landlord statistics |
+| GET | `/api/v1/landlord/properties` | LANDLORD | Get my properties |
+| GET | `/api/v1/landlord/rental-requests` | LANDLORD | Get rental requests for my properties |
+| GET | `/api/v1/landlord/reviews` | LANDLORD | Get reviews for my properties |
+| GET | `/api/v1/landlord/tenants/:tenantId/history` | LANDLORD | Get tenant rental history |
+
+---
+
 ## 📋 Table of Contents
 1. [Authentication Routes](#1-authentication-routes)
 2. [User Routes](#2-user-routes)
