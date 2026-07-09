@@ -18,7 +18,7 @@
 |--------|----------|--------|-------------|
 | GET | `/api/v1/users` | ADMIN | Get all users |
 | GET | `/api/v1/users/me` | Authenticated | Get current user profile |
-| PUT | `/api/v1/users/:id` | Authenticated | Update user profile |
+| PATCH | `/api/v1/users/:id` | Authenticated | Update user profile |
 | DELETE | `/api/v1/users/:id` | ADMIN | Delete user |
 | PATCH | `/api/v1/users/:id/moderate` | ADMIN | Ban/Unban user |
 
@@ -28,7 +28,7 @@
 | GET | `/api/v1/properties` | Public | Get all properties (with filters) |
 | GET | `/api/v1/properties/:id` | Public | Get single property details |
 | POST | `/api/v1/properties` | ADMIN/LANDLORD | Create new property listing |
-| PUT | `/api/v1/properties/:id` | ADMIN/LANDLORD | Update property (owner only) |
+| PATCH | `/api/v1/properties/:id` | ADMIN/LANDLORD | Update property (owner only) |
 | DELETE | `/api/v1/properties/:id` | ADMIN/LANDLORD | Delete property (owner only) |
 
 ### Category Routes (`/api/v1/categories`)
@@ -37,7 +37,7 @@
 | GET | `/api/v1/categories` | Public | Get all categories |
 | GET | `/api/v1/categories/:id` | Public | Get single category with properties |
 | POST | `/api/v1/categories` | ADMIN | Create new category |
-| PUT | `/api/v1/categories/:id` | ADMIN | Update category |
+| PATCH | `/api/v1/categories/:id` | ADMIN | Update category |
 | DELETE | `/api/v1/categories/:id` | ADMIN | Delete category |
 
 ### Rental Request Routes (`/api/v1/rentals`)
@@ -63,7 +63,7 @@
 | GET | `/api/v1/reviews` | Public | Get all reviews (with filters) |
 | GET | `/api/v1/reviews/:id` | Public | Get single review |
 | POST | `/api/v1/reviews` | TENANT | Create review (after completed rental) |
-| PUT | `/api/v1/reviews/:id` | TENANT | Update review (owner only) |
+| PATCH | `/api/v1/reviews/:id` | TENANT | Update review (owner only) |
 | DELETE | `/api/v1/reviews/:id` | TENANT | Delete review (owner only) |
 
 ### Admin Routes (`/api/v1/admin`)
@@ -182,7 +182,7 @@
 ---
 
 ### 2.3 Update User
-- **Method:** `PUT`
+- **Method:** `PATCH`
 - **Endpoint:** `/api/v1/users/:id`
 - **Access:** Authenticated (All roles)
 - **Description:** Update user profile
@@ -262,7 +262,7 @@
 ```
 
 ### 3.4 Update Property
-- **Method:** `PUT`
+- **Method:** `PATCH`
 - **Endpoint:** `/api/v1/properties/:id`
 - **Access:** LANDLORD only (property owner)
 - **Headers:** `Authorization: Bearer <accessToken>`
@@ -301,7 +301,7 @@
 - **Example Categories:** Apartment, House, Studio, Villa, Condo, Townhouse
 
 ### 4.4 Update Category
-- **Method:** `PUT`
+- **Method:** `PATCH`
 - **Endpoint:** `/api/v1/categories/:id`
 - **Access:** ADMIN only
 - **Headers:** `Authorization: Bearer <accessToken>`
@@ -596,7 +596,7 @@ stripe-signature: t=...,v1=...
 - **Validations:** Must have COMPLETED rental, rating 1-5, one review per property
 
 ### 7.4 Update Review
-- **Method:** `PUT`
+- **Method:** `PATCH`
 - **Endpoint:** `/api/v1/reviews/:id`
 - **Access:** TENANT only (review owner)
 - **Headers:** `Authorization: Bearer <accessToken>`
