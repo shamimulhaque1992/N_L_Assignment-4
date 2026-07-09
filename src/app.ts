@@ -20,7 +20,7 @@ const app: Application = express();
 // This MUST be registered before express.json() so Stripe signature
 // verification receives the original Buffer, not the parsed JSON object.
 app.use(
-  "/api/v1/payments/webhook",
+  "/payments/webhook",
   express.raw({ type: "application/json" }),
 );
 // ─────────────────────────────────────────────────────────────────────────────
@@ -40,31 +40,31 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 // Authentication routes
-app.use("/api/v1/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 // User routes
-app.use("/api/v1/users", userRoutes);
+app.use("/users", userRoutes);
 
 // Property routes (public & landlord)
-app.use("/api/v1/properties", propertiesRoutes);
+app.use("/properties", propertiesRoutes);
 
 // Category routes (public & admin)
-app.use("/api/v1/categories", categoriesRoutes);
+app.use("/categories", categoriesRoutes);
 
 // Rental request routes (tenant & landlord)
-app.use("/api/v1/rentals", requestRoutes);
+app.use("/rentals", requestRoutes);
 
 // Payment routes (tenant & admin)
-app.use("/api/v1/payments", paymentRoutes);
+app.use("/payments", paymentRoutes);
 
 // Review routes (public & tenant)
-app.use("/api/v1/reviews", reviewsRoutes);
+app.use("/reviews", reviewsRoutes);
 
 // Admin routes
-app.use("/api/v1/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 
 // Landlord routes
-app.use("/api/v1/landlord", landlordRoutes);
+app.use("/landlord", landlordRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);
