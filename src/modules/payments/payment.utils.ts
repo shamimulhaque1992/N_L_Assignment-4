@@ -1,16 +1,15 @@
 import Stripe from "stripe";
-import { PaymentStatus, RequestStatus } from "../../../generated/prisma/enums";
+import {
+  PaymentStatus,
+  PropertyStatus,
+  RequestStatus,
+} from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
 export const handleCheckoutSessionCompleted = async (
   session: Stripe.Checkout.Session,
 ) => {
   const rentalRequestId = session.metadata?.rentalRequestId;
-
-  console.log("Webhook: checkout.session.completed");
-  console.log("rentalRequestId:", rentalRequestId);
-  console.log("session.id:", session.id);
-  console.log("payment_intent:", session.payment_intent);
 
   if (!rentalRequestId) {
     console.error("Webhook: missing rentalRequestId in metadata — skipping");
@@ -22,30 +21,32 @@ export const handleCheckoutSessionCompleted = async (
   const currentPeriodEnd = new Date();
   currentPeriodEnd.setDate(currentPeriodEnd.getDate() + 30);
 
-  await prisma.$transaction(async (tx) => {
-    await tx.payment.update({
-      where: { rentalRequestId },
-      data: {
-        status: PaymentStatus.COMPLETED,
-        stripeSubscriptionId: transactionId,
-        currentPeriodEnd,
-        paidAt: new Date(),
-      },
+  const transactionResult = await prisma.$transaction(async (tx) => {
+    const [updatedPayment, updatedRentalRequest] = await Promise.all([
+      tx.payment.update({
+        where: { rentalRequestId },
+        data: {
+          status: PaymentStatus.COMPLETED,
+          stripeSubscriptionId: transactionId,
+          currentPeriodEnd,
+          paidAt: new Date(),
+        },
+      }),
+      tx.rentalRequest.update({
+        where: { id: rentalRequestId },
+        data: { status: RequestStatus.ACTIVE },
+      }),
+    ]);
+
+    const updatedProperty = await tx.property.update({
+      where: { id: updatedRentalRequest.propertyId },
+      data: { status: PropertyStatus.UNAVAILABLE },
     });
 
-    const rentalRequest = await tx.rentalRequest.update({
-      where: { id: rentalRequestId },
-      data: { status: RequestStatus.ACTIVE },
-    });
-
-    // After the property is occupied by a tenant payment then we make the property unavailable
-    await tx.property.update({
-      where: { id: rentalRequest.propertyId },
-      data: { status: "UNAVAILABLE" },
-    });
+    return { updatedPayment, updatedRentalRequest, updatedProperty };
   });
 
-  console.log("currentPeriodEnd:", currentPeriodEnd.toISOString());
+  return transactionResult;
 };
 
 export const handleCheckoutSessionExpired = async (
@@ -53,11 +54,8 @@ export const handleCheckoutSessionExpired = async (
 ) => {
   const rentalRequestId = session.metadata?.rentalRequestId;
 
-  console.log("Webhook: checkout.session.expired");
-  console.log("  rentalRequestId:", rentalRequestId);
-
   if (!rentalRequestId) {
-    console.error("Webhook: missing rentalRequestId in metadata — skipping");
+    console.error("Webhook: missing rentalRequestId in metadata skipping");
     return;
   }
 
@@ -65,6 +63,4 @@ export const handleCheckoutSessionExpired = async (
     where: { rentalRequestId },
     data: { status: PaymentStatus.FAILED },
   });
-
-  console.log("Payment marked FAILED");
 };
