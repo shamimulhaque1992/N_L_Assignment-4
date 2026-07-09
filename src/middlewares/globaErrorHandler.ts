@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import httpStatus from "http-status";
+import { ZodError } from "zod";
 import { Prisma } from "../../generated/prisma/client";
+import AppError from "../utils/AppError";
 
 export const globalErrorHandler = (
   err: any,
@@ -8,11 +10,21 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  let statusCode;
+  let statusCode: number | undefined;
   let errorMessage = err.message || "Internal server error";
   let errorName = err.name || "Internal server error";
 
-  if (err instanceof Prisma.PrismaClientValidationError) {
+  if (err instanceof AppError) {
+    statusCode = err.statusCode;
+    errorMessage = err.message;
+    errorName = err.name;
+  } else if (err instanceof ZodError) {
+    statusCode = httpStatus.BAD_REQUEST;
+    errorName = "ValidationError";
+    errorMessage = err.issues
+      .map((issue) => `${String(issue.path.join(".")) || "body"}: ${issue.message}`)
+      .join(", ");
+  } else if (err instanceof Prisma.PrismaClientValidationError) {
     statusCode = httpStatus.BAD_REQUEST;
     errorMessage = "You have provided incorrect field type or missing fields";
   } else if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -41,11 +53,11 @@ export const globalErrorHandler = (
     errorMessage = "Error occurred during query execution";
   }
 
-  res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+  res.status(statusCode || httpStatus.INTERNAL_SERVER_ERROR).json({
     success: false,
     statusCode: statusCode || httpStatus.INTERNAL_SERVER_ERROR,
     name: errorName,
-    message: err.message,
+    message: errorMessage,
     error: err.stack,
   });
 };
