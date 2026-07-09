@@ -1,0 +1,976 @@
+{
+  "info": {
+    "_postman_id": "a5b29fed-f487-4c27-b466-813189266b95",
+    "name": "RentNest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38490296"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get my profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/users/me",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update profiel",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/users/",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "users",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/users",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete users",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/users/9e519729-21a3-48e5-b730-ef7932cec2fd",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "users",
+                "9e519729-21a3-48e5-b730-ef7932cec2fd"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Moderate user",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":\"BAN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/users/2e621f3a-dda2-40f4-b6ba-a0adc6a492db/moderate",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "users",
+                "2e621f3a-dda2-40f4-b6ba-a0adc6a492db",
+                "moderate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Property",
+      "item": [
+        {
+          "name": "Create properties",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"title\": \"Dummy porperty\",\r\n    \"description\": \"Dummy porperyt for test\",\r\n    \"price\": 700,\r\n    \"address\": \"56 Meadow Lane, Lancaster, PA 17601\",\r\n    \"amenities\": [\"Garden\", \"Fireplace\", \"Parking\", \"WiFi\", \"BBQ Area\"],\r\n    \"categoryId\": \"7be1d6c8-ad1a-47ef-807a-10225718f64d\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/properties",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all properties",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/properties",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single property",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/properties/1d05be30-cecc-4ef5-a151-00cd4e349193",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "properties",
+                "1d05be30-cecc-4ef5-a151-00cd4e349193"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update property",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"title\": \"Peaceful Country Cottage\",\r\n    \"description\": \"Relax in a charming countryside cottage surrounded by greenery.\",\r\n    \"price\": 700,\r\n    \"address\": \"56 Meadow Lane, Lancaster, PA 17601\",\r\n    \"amenities\": [\"Garden\", \"Fireplace\", \"Parking\", \"WiFi\", \"BBQ Area\"],\r\n    \"categoryId\": \"7be1d6c8-ad1a-47ef-807a-10225718f64d\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/properties/a80a18f6-b890-4c8e-90b0-7e637e613391",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "properties",
+                "a80a18f6-b890-4c8e-90b0-7e637e613391"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete prooperty",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/properties/a80a18f6-b890-4c8e-90b0-7e637e613391",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "properties",
+                "a80a18f6-b890-4c8e-90b0-7e637e613391"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Request",
+      "item": [
+        {
+          "name": "Create a rental request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"propertyId\":\"d00dff38-983f-4b8a-95c3-0fcd4b2e0db6\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/rentals",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all rental request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/rentals?sortBy=createdAt&sortOrder=asc",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "rentals"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "createdAt"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update rental request status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":\"COMPLETED\"\r\n    // \"status\":\"APPROVED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/rentals/be22f6a6-5f85-4242-8f63-f97b973cc617/status",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "rentals",
+                "be22f6a6-5f85-4242-8f63-f97b973cc617",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single rental request",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":\"APPROVED\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/rentals/6cf8bb0d-d298-42bb-a773-71ceb9185b6d",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "rentals",
+                "6cf8bb0d-d298-42bb-a773-71ceb9185b6d"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel rental request",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":\"APPROVED\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/rentals/6cf8bb0d-d298-42bb-a773-71ceb9185b6d/cancel",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "rentals",
+                "6cf8bb0d-d298-42bb-a773-71ceb9185b6d",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "item": [
+        {
+          "name": "Create a review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyId\": \"1d05be30-cecc-4ef5-a151-00cd4e349193\",\n  \"rating\": 5,\n  \"comment\": \"Excellent property with great amenities!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/reviews",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/reviews",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single reviw",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/reveiews/",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "reveiews",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a review",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/reviews/84dd7435-93fc-4ccb-88b5-6c2609185aba",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "reviews",
+                "84dd7435-93fc-4ccb-88b5-6c2609185aba"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a review",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/reviews/",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "reviews",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Create category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"dummy category\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/categories",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/categories",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Countryside\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/categories/87f18987-a00e-4869-b63d-f2fc21df53b5",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "categories",
+                "87f18987-a00e-4869-b63d-f2fc21df53b5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update category",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Countryside\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/categories/7be1d6c8-ad1a-47ef-807a-10225718f64d",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "categories",
+                "7be1d6c8-ad1a-47ef-807a-10225718f64d"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Countryside\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/categories/87f18987-a00e-4869-b63d-f2fc21df53b5",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "categories",
+                "87f18987-a00e-4869-b63d-f2fc21df53b5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    // \"email\":\"shamimulhaquSDe+1kashfee@gmail.com\",//landlord\n    // \"email\":\"admin@gmail.com\",//admin\n    \"email\":\"demotanent@gmail.com\", //tanent\n    \"password\":\"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/auth/login",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/auth/refresh-token",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"Demo tenant\",\n    \"email\":\"demotanent@gmail.com\",\n    \"password\":\"123456\",\n    \"phone\":\"01779312970\",\n    \"avatar\":\"https://google.com\",\n    \"bio\":\"demo bio for kashfee\",\n    \"role\":\"LANDLORD\" //TENANT\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/auth/register",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create payment intent",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rentalRequestId\":\"be22f6a6-5f85-4242-8f63-f97b973cc617\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/payments/create-intent",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "payments",
+                "create-intent"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all payments",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rentalRequestId\":\"5da6029a-859d-422a-8b6a-ed26b51f6ae6\"\r\n}"
+            },
+            "url": {
+              "raw": "{{rent_nest_root_url}}/payments",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single payment history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/payments/c1821db5-977b-4eaf-a20c-e51b223cd5f5",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "payments",
+                "c1821db5-977b-4eaf-a20c-e51b223cd5f5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Admin dashboard(all stat)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/admin/dashboard",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View all properties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/admin/properties",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "admin",
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View all rental request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/admin/rental-requests",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "admin",
+                "rental-requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletes single review",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/admin/reviews",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "admin",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete single property",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/admin/properties/e43046e4-c2eb-41db-b4c7-4966ced963de",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "admin",
+                "properties",
+                "e43046e4-c2eb-41db-b4c7-4966ced963de"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Land Lord",
+      "item": [
+        {
+          "name": "Get landlord stat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/landlord/stats",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "landlord",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get my properties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/landlord/properties",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "landlord",
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get rental requests of mine(landlord)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/landlord/rental-requests",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "landlord",
+                "rental-requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get reviews of mine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/landlord/reviews",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "landlord",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get tenant history of my property",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{rent_nest_root_url}}/landlord/tenants/cc2d8e47-4b24-49e9-880f-daa55a6c8a3b/history",
+              "host": [
+                "{{rent_nest_root_url}}"
+              ],
+              "path": [
+                "landlord",
+                "tenants",
+                "cc2d8e47-4b24-49e9-880f-daa55a6c8a3b",
+                "history"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "rent_nest_root_url",
+      "value": ""
+    }
+  ]
+}
