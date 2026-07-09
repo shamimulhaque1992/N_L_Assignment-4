@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Role } from "../../../generated/prisma/enums";
 import { auth } from "../../middlewares/auth";
 import { paymentController } from "./payment.controller";
+import { paymentValidator } from "./payment.validation";
 
 const router = Router();
 
@@ -9,6 +10,7 @@ router.post("/webhook", paymentController.handleWebhook);
 router.post(
   "/create-intent",
   auth(Role.TENANT),
+  paymentValidator.createSession,
   paymentController.createPaymentSession,
 );
 router.get(

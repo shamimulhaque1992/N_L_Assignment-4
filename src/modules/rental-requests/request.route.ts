@@ -1,11 +1,17 @@
 import { Router } from "express";
 import { requestController } from "./request.controller";
+import { requestValidator } from "./request.validation";
 import { auth } from "../../middlewares/auth";
 import { Role } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-router.post("/", auth(Role.TENANT), requestController.createRentalRequest);
+router.post(
+  "/",
+  auth(Role.TENANT),
+  requestValidator.create,
+  requestController.createRentalRequest,
+);
 router.patch(
   "/:id/cancel",
   auth(Role.TENANT),
@@ -14,6 +20,7 @@ router.patch(
 router.patch(
   "/:id/status",
   auth(Role.LANDLORD),
+  requestValidator.updateStatus,
   requestController.updateRentalRequestStatus,
 );
 router.get(
