@@ -44,10 +44,18 @@
 | Method | Endpoint | Access | Description |
 |--------|----------|--------|-------------|
 | POST | `/api/v1/rentals` | TENANT | Submit rental request |
+| PATCH | `/api/v1/rentals/:id/cancel` | TENANT | Cancel pending request |
+| PATCH | `/api/v1/rentals/:id/status` | LANDLORD | Approve/Reject/Complete request |
 | GET | `/api/v1/rentals` | TENANT/LANDLORD/ADMIN | Get rental requests (filtered by role) |
 | GET | `/api/v1/rentals/:id` | TENANT/LANDLORD/ADMIN | Get single rental request |
-| PATCH | `/api/v1/rentals/:id/status` | LANDLORD | Approve/Reject/Complete request |
-| PATCH | `/api/v1/rentals/:id/cancel` | TENANT | Cancel pending request |
+
+### Payment Routes (`/api/v1/payments`)
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/payments/webhook` | Public (Stripe) | Stripe webhook handler |
+| POST | `/api/v1/payments/create-intent` | TENANT | Create Stripe payment session |
+| GET | `/api/v1/payments` | TENANT/ADMIN | Get all payments |
+| GET | `/api/v1/payments/:id` | TENANT/ADMIN | Get single payment details |
 
 ### Review Routes (`/api/v1/reviews`)
 | Method | Endpoint | Access | Description |
@@ -963,11 +971,14 @@ The `currentPeriodEnd` on the payment record will be updated and the rental stay
 
 - **Email Uniqueness:** Each user must have a unique email address
 - **Property Availability:** Only AVAILABLE properties can receive rental requests
+- **Payment Flow:** APPROVED rental requests must be paid before becoming ACTIVE
+- **Payment Security:** Webhook endpoint verifies Stripe signature for security
 - **Review Restrictions:** Can only review properties with COMPLETED rentals
 - **One Review Per Property:** Tenants can only leave one review per property
 - **Request Cancellation:** Only PENDING requests can be cancelled by tenants
 - **Landlord Authorization:** Landlords can only modify their own properties
 - **Admin Override:** Admins can delete any property or review for moderation
+- **Status Progression:** PENDING → APPROVED → (Payment) → ACTIVE → COMPLETED
 - **Webhook raw body:** The `/api/v1/payments/webhook` route uses `express.raw()` — never send parsed JSON to it
 - **Stripe Price ID:** Must be a **recurring** price (monthly), not a one-time price. Create it in the Stripe Dashboard under Products
 
