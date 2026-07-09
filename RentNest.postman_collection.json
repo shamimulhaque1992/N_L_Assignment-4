@@ -448,6 +448,15 @@
           "request": {
             "method": "PATCH",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"rating\": 4,\n  \"comment\": \"Excellent property with great amenities! updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{rent_nest_root_url}}/reviews/84dd7435-93fc-4ccb-88b5-6c2609185aba",
               "host": [
