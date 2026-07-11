@@ -2,7 +2,7 @@
 
 A REST API backend for property rental management connecting tenants with landlords.
 
-**Live URL:** https://rentnest-ten.vercel.app
+**Live URL:** `https://rentnest-ten.vercel.app`
 
 ## Overview
 
@@ -32,9 +32,11 @@ Create `.env` file:
 DATABASE_URL=postgresql://user:password@localhost:5432/rentnest
 JWT_ACCESS_SECRET=your_secret
 JWT_REFRESH_SECRET=your_secret
+BCRYPT_SALT_ROUNDS=your_number
 STRIPE_SECRET_KEY=sk_test_your_key
 STRIPE_WEBHOOK_SECRET=whsec_your_secret
 PORT=8000
+APP_URL=
 ```
 
 Setup database:

@@ -1,6 +1,9 @@
 # RentNest API Documentation
 
-**Base URL:** `http://localhost:8000`
+**Base URL:** 
+
+**Local URL:** `http://localhost:8000`
+**Live URL:** `https://rentnest-ten.vercel.app`
 
 ---
 

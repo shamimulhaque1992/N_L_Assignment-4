@@ -166,12 +166,18 @@
               }
             },
             "url": {
-              "raw": "{{rent_nest_root_url}}/properties",
+              "raw": "{{rent_nest_root_url}}/properties?status=AVAILABLE",
               "host": [
                 "{{rent_nest_root_url}}"
               ],
               "path": [
                 "properties"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "AVAILABLE"
+                }
               ]
             }
           },
@@ -252,7 +258,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"propertyId\":\"d00dff38-983f-4b8a-95c3-0fcd4b2e0db6\"\r\n}",
+              "raw": "{\r\n    \"propertyId\":\"13e6c448-2bc4-4e4e-a9f5-cf3ccf7b5ca1\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -305,7 +311,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"status\":\"COMPLETED\"\r\n    // \"status\":\"APPROVED\"\r\n}",
+              "raw": "{\r\n    // \"status\":\"COMPLETED\"\r\n    \"status\":\"APPROVED\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -313,13 +319,13 @@
               }
             },
             "url": {
-              "raw": "{{rent_nest_root_url}}/rentals/be22f6a6-5f85-4242-8f63-f97b973cc617/status",
+              "raw": "{{rent_nest_root_url}}/rentals/e6b37ec6-e756-4b51-8ded-6a04c58d3a53/status",
               "host": [
                 "{{rent_nest_root_url}}"
               ],
               "path": [
                 "rentals",
-                "be22f6a6-5f85-4242-8f63-f97b973cc617",
+                "e6b37ec6-e756-4b51-8ded-6a04c58d3a53",
                 "status"
               ]
             }
@@ -389,7 +395,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"propertyId\": \"1d05be30-cecc-4ef5-a151-00cd4e349193\",\n  \"rating\": 5,\n  \"comment\": \"Excellent property with great amenities!\"\n}",
+              "raw": "{\n  \"propertyId\": \"fcc733f7-e76f-4214-860d-ca3f90d7c9c8\",\n  \"rating\": 5,\n  \"comment\": \"Excellent property with great amenities!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -525,12 +531,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{rent_nest_root_url}}/categories",
+              "raw": "{{rent_nest_root_url}}/categories?status=AVAIABLE",
               "host": [
                 "{{rent_nest_root_url}}"
               ],
               "path": [
                 "categories"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "AVAIABLE"
+                }
               ]
             }
           },
@@ -617,7 +629,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    // \"email\":\"shamimulhaquSDe+1kashfee@gmail.com\",//landlord\n    // \"email\":\"admin@gmail.com\",//admin\n    \"email\":\"demotanent@gmail.com\", //tanent\n    \"password\":\"123456\"\n}",
+              "raw": "{\n    // \"email\":\"shamimulhaquSDe+1kashfee@gmail.com\",//landlord\n    // \"email\":\"admin@gmail.com\",//admin\n    \"email\":\"test_tanent@gmail.com\", //tanent\n    \"password\":\"123456\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -662,7 +674,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\":\"Demo tenant\",\n    \"email\":\"demotanent@gmail.com\",\n    \"password\":\"123456\",\n    \"phone\":\"01779312970\",\n    \"avatar\":\"https://google.com\",\n    \"bio\":\"demo bio for kashfee\",\n    \"role\":\"LANDLORD\" //TENANT\n}",
+              "raw": "// {\n//     \"name\":\"Demo tenant\",\n//     \"email\":\"test_tanent@gmail.com\",\n//     \"password\":\"123456\",\n//     \"phone\":\"01779312970\",\n//     \"avatar\":\"https://google.com\",\n//     \"bio\":\"demo bio for tanent\",\n//     \"role\":\"TENANT\"\n// }\n\n{\n    \"name\":\"Demo land lord\",\n    \"email\":\"testaa_land_lord@gmail.com\",\n    \"password\":\"123456\",\n    \"phone\":\"01779312970\",\n    \"avatar\":\"https://google.com\",\n    \"bio\":\"demo bio for land lord\",\n    \"role\":\"LANDLORD\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -694,7 +706,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"rentalRequestId\":\"be22f6a6-5f85-4242-8f63-f97b973cc617\"\r\n}",
+              "raw": "{\r\n    \"rentalRequestId\":\"e6b37ec6-e756-4b51-8ded-6a04c58d3a53\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -979,6 +991,10 @@
   "variable": [
     {
       "key": "rent_nest_root_url",
+      "value": ""
+    },
+    {
+      "key": "rent_nest_root_url_local",
       "value": ""
     }
   ]
