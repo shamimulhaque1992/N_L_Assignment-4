@@ -48,9 +48,13 @@ const registerUser = async (payload: ICreateUserPayload) => {
 const login = async (payload: ILoginPayload) => {
   const { email, password } = payload;
   // check the user exists or not
-  const isUserExistsOrNot = await prisma.user.findUniqueOrThrow({
+  const isUserExistsOrNot = await prisma.user.findUnique({
     where: { email },
   });
+
+  if (!isUserExistsOrNot) {
+    throw new Error("Email or password did not match");
+  }
   // check the password is correct or not
   const isMatchPassword = await bcrypt.compare(
     password,
