@@ -10,8 +10,11 @@ const createProperty = async (
   landlordId: string,
   payload: ICreatePropertyPayload,
 ) => {
-  const { title, description, price, address, amenities, categoryId } =
-    payload;
+  const { title, description, price, address, amenities, categoryId } = payload;
+
+  const lowerCaseAmenities = amenities.map((amenity: string) =>
+    amenity.toLowerCase(),
+  );
 
   // Verify category exists
   await prisma.category.findUniqueOrThrow({
@@ -24,7 +27,7 @@ const createProperty = async (
       description,
       price,
       address,
-      amenities,
+      amenities: lowerCaseAmenities,
       categoryId,
       landlordId,
     },
@@ -125,7 +128,9 @@ const getAllProperties = async (query: IGetAllPropertiesQuery) => {
   }
 
   if (query.amenities) {
-    const amenitiesArray = JSON.parse(query.amenities as string);
+    const amenitiesArray = JSON.parse(query.amenities as string).map(
+      (item: string) => item.toLowerCase(),
+    );
     andConditions.push({
       amenities: {
         hasEvery: amenitiesArray,
@@ -214,6 +219,13 @@ const updateProperty = async (
     await prisma.category.findUniqueOrThrow({
       where: { id: payload.categoryId },
     });
+  }
+
+  if (payload.amenities && payload.amenities.length > 0) {
+    const lowerCaseAmenities = payload.amenities.map((amenity) =>
+      amenity.toLowerCase(),
+    );
+    payload.amenities = lowerCaseAmenities;
   }
 
   const updatedProperty = await prisma.property.update({
