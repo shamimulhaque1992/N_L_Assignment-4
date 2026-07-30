@@ -10,7 +10,8 @@ const createProperty = async (
   landlordId: string,
   payload: ICreatePropertyPayload,
 ) => {
-  const { title, description, price, address, amenities, categoryId } = payload;
+  const { title, description, price, address, amenities, categoryId, images } =
+    payload;
 
   const lowerCaseAmenities = amenities.map((amenity: string) =>
     amenity.toLowerCase(),
@@ -27,6 +28,7 @@ const createProperty = async (
       description,
       price,
       address,
+      images,
       amenities: lowerCaseAmenities,
       categoryId,
       landlordId,
@@ -44,7 +46,7 @@ const createProperty = async (
 };
 
 const getAllProperties = async (query: IGetAllPropertiesQuery) => {
-  const limit = query.limit ? Number(query.limit) : 10;
+  const limit = query.limit ? Number(query.limit) : 6;
   const page = query.page ? Number(query.page) : 1;
   const skip = (page - 1) * limit;
 

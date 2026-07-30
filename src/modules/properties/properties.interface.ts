@@ -6,6 +6,7 @@ export interface ICreatePropertyPayload {
   price: number;
   address: string;
   amenities: string[];
+  images?: string[];
   categoryId: string;
 }
 
@@ -15,6 +16,7 @@ export interface IUpdatePropertyPayload {
   price?: number;
   address?: string;
   amenities?: string[];
+  images?: string[];
   categoryId?: string;
   status?: PropertyStatus;
 }
