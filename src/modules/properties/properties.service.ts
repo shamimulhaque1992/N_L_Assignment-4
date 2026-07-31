@@ -188,6 +188,11 @@ const getSingleProperty = async (propertyId: string) => {
         omit: { password: true },
         include: { profile: true },
       },
+      rentalRequests: {
+        include: {
+          tenant: { omit: { password: true } },
+        },
+      },
       reviews: {
         include: {
           tenant: {
