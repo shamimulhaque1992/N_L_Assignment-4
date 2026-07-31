@@ -9,6 +9,7 @@ const createPropertySchema = z.object({
     .positive("Price must be a positive number"),
   address: z.string().min(1, "Address is required").max(255),
   amenities: z.array(z.string()).optional().default([]),
+  images: z.array(z.string()).optional().default([]),
   categoryId: z.string().uuid("Category ID must be a valid UUID"),
   status: z.enum(["AVAILABLE", "UNAVAILABLE"] as const).optional(),
 });
@@ -22,6 +23,7 @@ const updatePropertySchema = z.object({
     .optional(),
   address: z.string().min(1).max(255).optional(),
   amenities: z.array(z.string()).optional(),
+  images: z.array(z.string()).optional(),
   categoryId: z.string().uuid("Category ID must be a valid UUID").optional(),
   status: z.enum(["AVAILABLE", "UNAVAILABLE"] as const).optional(),
 });
