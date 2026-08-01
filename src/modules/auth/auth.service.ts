@@ -69,6 +69,7 @@ const login = async (payload: ILoginPayload) => {
     email: isUserExistsOrNot.email,
     name: isUserExistsOrNot.name,
     role: isUserExistsOrNot.role,
+    status: isUserExistsOrNot.status,
   };
   // create access token
   const accessToken = jwtUtils.createToken(

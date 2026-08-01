@@ -1,5 +1,5 @@
 import { Prisma } from "../../../generated/prisma/client";
-import { RequestStatus } from "../../../generated/prisma/enums";
+import { RequestStatus, Role } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import {
   ICreateRentalRequestPayload,
@@ -64,7 +64,11 @@ const createRentalRequest = async (
   return rentalRequest;
 };
 
-const getAllRentalRequests = async (query: IGetAllRentalRequestsQuery) => {
+const getAllRentalRequests = async (
+  query: IGetAllRentalRequestsQuery,
+  userId: string,
+  userRole: string,
+) => {
   const limit = query.limit ? Number(query.limit) : 10;
   const page = query.page ? Number(query.page) : 1;
   const skip = (page - 1) * limit;
@@ -74,6 +78,14 @@ const getAllRentalRequests = async (query: IGetAllRentalRequestsQuery) => {
 
   const andConditions: Prisma.RentalRequestWhereInput[] = [];
 
+  // Here i'm making sure the requet hat the lenant made only those includes
+  if (userRole === Role.TENANT) {
+    andConditions.push({ tenantId: userId });
+  }
+  // Here i'm making sure the requet hat the landlord made only those includes
+  if (userRole === Role.LANDLORD) {
+    andConditions.push({ property: { landlordId: userId } });
+  }
   if (query.tenantId) {
     andConditions.push({
       tenantId: query.tenantId,

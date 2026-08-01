@@ -29,6 +29,22 @@ const getAllProperties = catchAsync(
     });
   },
 );
+const getAllMyProperties = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req?.user?.id as string;
+    const result = await propertiesService.getAllMyProperties(
+      req.query,
+      userId,
+    );
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Properties retrieved successfully",
+      data: result.data,
+      meta: result.meta,
+    });
+  },
+);
 
 const getSingleProperty = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -81,6 +97,7 @@ const deleteProperty = catchAsync(
 export const propertiesController = {
   createProperty,
   getAllProperties,
+  getAllMyProperties,
   getSingleProperty,
   updateProperty,
   deleteProperty,

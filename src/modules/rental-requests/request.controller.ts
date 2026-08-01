@@ -19,7 +19,13 @@ const createRentalRequest = catchAsync(
 
 const getAllRentalRequests = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await requestService.getAllRentalRequests(req.query);
+    const userId = req.user?.id as string;
+    const userRole = req.user?.role as string;
+    const result = await requestService.getAllRentalRequests(
+      req.query,
+      userId,
+      userRole,
+    );
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,

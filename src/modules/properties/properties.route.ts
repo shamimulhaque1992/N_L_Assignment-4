@@ -7,6 +7,11 @@ import { Role } from "../../../generated/prisma/enums";
 const router = Router();
 
 router.get("/", propertiesController.getAllProperties);
+router.get(
+  "/my-properties",
+  auth(Role.LANDLORD, Role.ADMIN),
+  propertiesController.getAllMyProperties,
+);
 router.get("/:id", propertiesController.getSingleProperty);
 router.post(
   "/",
