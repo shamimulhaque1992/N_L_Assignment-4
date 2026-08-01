@@ -16,6 +16,7 @@ const getLandlordStats = async (
     completedRequests,
     totalReviews,
     averageRatingResult,
+    totalRevnueResult,
   ] = await Promise.all([
     prisma.property.count({ where: { landlordId } }),
     prisma.property.count({
@@ -48,7 +49,14 @@ const getLandlordStats = async (
         rating: true,
       },
     }),
+    prisma.payment.aggregate({
+      where: { rentalRequest: { property: { landlordId } } },
+      _sum: {
+        amount: true,
+      },
+    }),
   ]);
+  console.log("🚀 ~ getLandlordStats ~ totalRevnueResult:", totalRevnueResult);
 
   return {
     totalProperties,
@@ -61,6 +69,7 @@ const getLandlordStats = async (
     completedRequests,
     totalReviews,
     averageRating: averageRatingResult._avg.rating || 0,
+    totalRevnue: Number(totalRevnueResult._sum.amount) ?? 0.0,
   };
 };
 

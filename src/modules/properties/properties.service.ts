@@ -46,7 +46,7 @@ const createProperty = async (
 };
 
 const getAllProperties = async (query: IGetAllPropertiesQuery) => {
-  const limit = query.limit ? Number(query.limit) : 6;
+  const limit = query.limit ? Number(query.limit) : 9;
   const page = query.page ? Number(query.page) : 1;
   const skip = (page - 1) * limit;
 
@@ -182,7 +182,7 @@ const getAllMyProperties = async (
   query: IGetAllPropertiesQuery,
   userId: string,
 ) => {
-  const limit = query.limit ? Number(query.limit) : 6;
+  const limit = query.limit ? Number(query.limit) : 9;
   const page = query.page ? Number(query.page) : 1;
   const skip = (page - 1) * limit;
 

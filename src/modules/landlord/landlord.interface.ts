@@ -1,3 +1,5 @@
+import { Decimal } from "@prisma/client/runtime/client";
+
 export interface IGetLandlordStats {
   totalProperties: number;
   availableProperties: number;
@@ -9,4 +11,5 @@ export interface IGetLandlordStats {
   completedRequests: number;
   totalReviews: number;
   averageRating: number;
+  totalRevnue: Decimal | number;
 }
