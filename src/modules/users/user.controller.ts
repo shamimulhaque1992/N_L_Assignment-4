@@ -17,6 +17,18 @@ const getAllUsers = catchAsync(
   },
 );
 
+const getSingleUserById = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id;
+    const result = await userService.getSingleUser(userId as string);
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "User retrieved successfully",
+      data: result,
+    });
+  },
+);
 const getSingleUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user?.id;
@@ -72,6 +84,7 @@ const moderateUser = catchAsync(
 export const userController = {
   getAllUsers,
   getSingleUser,
+  getSingleUserById,
   updateUser,
   deleteUser,
   moderateUser,

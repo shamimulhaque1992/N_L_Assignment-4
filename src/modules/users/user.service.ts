@@ -1,6 +1,10 @@
 import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
-import { IGetAllUsersQuery, IModerateUserPayload, IUpdateUserPayload } from "./user.interface";
+import {
+  IGetAllUsersQuery,
+  IModerateUserPayload,
+  IUpdateUserPayload,
+} from "./user.interface";
 
 const getAllUsers = async (query: IGetAllUsersQuery) => {
   const limit = query.limit ? Number(query.limit) : 10;
@@ -95,16 +99,24 @@ const getSingleUser = async (userId: string) => {
   });
   return user;
 };
+const getSingleUserById = async (userId: string) => {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { id: userId },
+    omit: { password: true },
+    include: { profile: true },
+  });
+  return user;
+};
 
 const updateUser = async (userId: string, payload: IUpdateUserPayload) => {
   const { name, avatar, bio, phone } = payload;
-  
+
   await prisma.user.findUniqueOrThrow({
     where: { id: userId },
   });
 
   const updateData: Prisma.UserUpdateInput = {};
-  
+
   if (name) {
     updateData.name = name;
   }
@@ -133,7 +145,7 @@ const deleteUser = async (userId: string) => {
   await prisma.user.findUniqueOrThrow({
     where: { id: userId },
   });
-  console.log("🚀 ~ deleteUser ~ userId:", userId)
+  console.log("🚀 ~ deleteUser ~ userId:", userId);
 
   await prisma.user.delete({
     where: { id: userId },
@@ -162,6 +174,7 @@ const moderateUser = async (userId: string, payload: IModerateUserPayload) => {
 export const userService = {
   getAllUsers,
   getSingleUser,
+  getSingleUserById,
   updateUser,
   deleteUser,
   moderateUser,
