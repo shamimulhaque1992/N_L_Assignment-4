@@ -43,7 +43,7 @@ const createRentalRequest = async (
     data: {
       tenantId,
       propertyId,
-      message
+      message,
     },
     include: {
       property: {
@@ -269,6 +269,54 @@ const updateRentalRequestStatus = async (
 
   return updatedRequest;
 };
+const deleteRentalRequest = async (
+  requestId: string,
+  userId: string,
+  userRole: string,
+) => {
+  const rentalRequest = await prisma.rentalRequest.findUniqueOrThrow({
+    where: { id: requestId },
+    include: {
+      property: true,
+    },
+  });
+
+  if (
+    userRole === Role.LANDLORD &&
+    rentalRequest.property.landlordId !== userId
+  ) {
+    throw new Error("You are not authorized to delete this rental request");
+  }
+  if (userRole === Role.TENANT && rentalRequest.tenantId !== userId) {
+    throw new Error("You are not authorized to delete this rental request");
+  }
+
+  const updatedRequest = await prisma.$transaction(async (tx) => {
+    const updated = await tx.rentalRequest.delete({
+      where: { id: requestId },
+      include: {
+        property: {
+          include: {
+            category: true,
+            landlord: {
+              omit: { password: true },
+              include: { profile: true },
+            },
+          },
+        },
+        tenant: {
+          omit: { password: true },
+          include: { profile: true },
+        },
+        payment: true,
+      },
+    });
+
+    return updated;
+  });
+
+  return updatedRequest;
+};
 
 const cancelRentalRequest = async (requestId: string, tenantId: string) => {
   const rentalRequest = await prisma.rentalRequest.findUniqueOrThrow({
@@ -315,5 +363,6 @@ export const requestService = {
   getAllRentalRequests,
   getSingleRentalRequest,
   updateRentalRequestStatus,
+  deleteRentalRequest,
   cancelRentalRequest,
 };

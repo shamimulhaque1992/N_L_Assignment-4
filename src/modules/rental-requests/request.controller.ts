@@ -66,6 +66,20 @@ const updateRentalRequestStatus = catchAsync(
     });
   },
 );
+const deleteRentalRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const requestId = req.params.id as string;
+    const userId = req?.user?.id as string;
+    const userRole = req?.user?.role as string;
+    const result = await requestService.deleteRentalRequest(requestId, userId, userRole);
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Rental request deleted successfully",
+      data: result,
+    });
+  },
+);
 
 const cancelRentalRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -88,6 +102,7 @@ export const requestController = {
   createRentalRequest,
   getAllRentalRequests,
   getSingleRentalRequest,
+  deleteRentalRequest,
   updateRentalRequestStatus,
   cancelRentalRequest,
 };

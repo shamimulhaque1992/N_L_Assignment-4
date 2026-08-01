@@ -23,6 +23,11 @@ router.patch(
   requestValidator.updateStatus,
   requestController.updateRentalRequestStatus,
 );
+router.delete(
+  "/:id",
+  auth(Role.LANDLORD, Role.TENANT, Role.ADMIN),
+  requestController.deleteRentalRequest,
+);
 router.get(
   "/",
   auth(Role.TENANT, Role.LANDLORD, Role.ADMIN),
