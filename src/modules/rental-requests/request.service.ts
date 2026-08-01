@@ -11,7 +11,7 @@ const createRentalRequest = async (
   tenantId: string,
   payload: ICreateRentalRequestPayload,
 ) => {
-  const { propertyId } = payload;
+  const { propertyId, message } = payload;
 
   // Verify property exists and is available
   const property = await prisma.property.findUniqueOrThrow({
@@ -43,6 +43,7 @@ const createRentalRequest = async (
     data: {
       tenantId,
       propertyId,
+      message
     },
     include: {
       property: {

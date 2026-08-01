@@ -2,6 +2,7 @@ import { RequestStatus } from "../../../generated/prisma/enums";
 
 export interface ICreateRentalRequestPayload {
   propertyId: string;
+  message?: string;
 }
 
 export interface IUpdateRentalRequestStatusPayload {

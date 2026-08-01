@@ -3,6 +3,7 @@ import { validateBody } from "../../utils/validateBody";
 
 const createRentalRequestSchema = z.object({
   propertyId: z.string().uuid("Property ID must be a valid UUID"),
+  message: z.string().optional(),
 });
 
 const updateRequestStatusSchema = z.object({
