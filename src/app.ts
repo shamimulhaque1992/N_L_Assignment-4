@@ -12,6 +12,7 @@ import { requestRoutes } from "./modules/rental-requests/request.route";
 import { reviewsRoutes } from "./modules/reviews/reviews.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { landlordRoutes } from "./modules/landlord/landlord.route";
+import { tenantRoutes } from "./modules/tenant/tenant.route";
 import { paymentRoutes } from "./modules/payments/payment.route";
 
 const app: Application = express();
@@ -58,6 +59,9 @@ app.use("/admin", adminRoutes);
 
 // Landlord routes
 app.use("/landlord", landlordRoutes);
+
+// Tenant routes
+app.use("/tenant", tenantRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);
