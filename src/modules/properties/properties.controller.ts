@@ -63,9 +63,11 @@ const updateProperty = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const propertyId = req.params.id as string;
     const landlordId = req.user?.id as string;
+    const userRole = req.user?.role as string;
     const result = await propertiesService.updateProperty(
       propertyId,
       landlordId,
+      userRole,
       req.body,
     );
     sendResponse(res, {
@@ -81,9 +83,11 @@ const deleteProperty = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const propertyId = req.params.id as string;
     const landlordId = req.user?.id as string;
+    const userRole = req.user?.role as string;
     const result = await propertiesService.deleteProperty(
       propertyId,
       landlordId,
+      userRole,
     );
     sendResponse(res, {
       success: true,

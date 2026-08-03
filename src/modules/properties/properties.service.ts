@@ -1,4 +1,4 @@
-import { Prisma } from "../../../generated/prisma/client";
+import { Prisma, Role } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 import {
   ICreatePropertyPayload,
@@ -348,6 +348,7 @@ const getSingleProperty = async (propertyId: string) => {
 const updateProperty = async (
   propertyId: string,
   landlordId: string,
+  userRole: string,
   payload: IUpdatePropertyPayload,
 ) => {
   const property = await prisma.property.findUniqueOrThrow({
@@ -355,7 +356,7 @@ const updateProperty = async (
   });
 
   // Verify the landlord owns this property
-  if (property.landlordId !== landlordId) {
+  if (userRole === Role.LANDLORD && property.landlordId !== landlordId) {
     throw new Error("You are not authorized to update this property");
   }
 
@@ -388,13 +389,17 @@ const updateProperty = async (
   return updatedProperty;
 };
 
-const deleteProperty = async (propertyId: string, landlordId: string) => {
+const deleteProperty = async (
+  propertyId: string,
+  landlordId: string,
+  userRole: string,
+) => {
   const property = await prisma.property.findUniqueOrThrow({
     where: { id: propertyId },
   });
 
   // Verify the landlord owns this property
-  if (property.landlordId !== landlordId) {
+  if (userRole === Role.LANDLORD && property.landlordId !== landlordId) {
     throw new Error("You are not authorized to delete this property");
   }
 
